@@ -9,7 +9,7 @@ public class PuzzleDay {
 		System.out.println("Result for puzzle 1 = " + res_1);
 
 		int res_2 = solvePuzzle2();
-		System.out.println("Result for puzzle 1 = " + res_2);
+		System.out.println("Result for puzzle 2 = " + res_2);
     }
 
 	private static int solvePuzzle1() {
