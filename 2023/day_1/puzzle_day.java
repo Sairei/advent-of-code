@@ -44,23 +44,19 @@ public class PuzzleDay {
 			String line = reader.readLine();
 
 			while (line != null) {
-				String withoutNumbers = line.replaceAll("[0-9]", "_");
-				String convertZeroToNumber = withoutNumbers.replaceAll("zero", "0");
-				String convertOneToNumber = convertZeroToNumber.replaceAll("one", "1");
-				String convertTwoToNumber = convertOneToNumber.replaceAll("two", "2");
-				String convertThreeToNumber = convertTwoToNumber.replaceAll("three", "3");
-				String convertFourToNumber = convertThreeToNumber.replaceAll("four", "4");
-				String convertFiveToNumber = convertFourToNumber.replaceAll("five", "5");
-				String convertSixToNumber = convertFiveToNumber.replaceAll("six", "6");
-				String convertSevenToNumber = convertSixToNumber.replaceAll("seven", "7");
-				String convertEightToNumber = convertSevenToNumber.replaceAll("eight", "8");
-				String convertNineToNumber = convertEightToNumber.replaceAll("nine", "9");
+				String convertZeroToNumber = line.replaceAll("zero", "z0o");
+				String convertOneToNumber = convertZeroToNumber.replaceAll("one", "o1e");
+				String convertTwoToNumber = convertOneToNumber.replaceAll("two", "t2w");
+				String convertThreeToNumber = convertTwoToNumber.replaceAll("three", "t3e");
+				String convertFourToNumber = convertThreeToNumber.replaceAll("four", "f4r");
+				String convertFiveToNumber = convertFourToNumber.replaceAll("five", "f5e");
+				String convertSixToNumber = convertFiveToNumber.replaceAll("six", "s6x");
+				String convertSevenToNumber = convertSixToNumber.replaceAll("seven", "s7x");
+				String convertEightToNumber = convertSevenToNumber.replaceAll("eight", "e8t");
+				String convertNineToNumber = convertEightToNumber.replaceAll("nine", "n9e");
 				
-				String withOnlyNumber = convertNineToNumber.replaceAll("[a-zA-Z_]", "");
-				String nb = "0";
-				if (withOnlyNumber.length() > 0) {
-					nb = withOnlyNumber.charAt(0) + "" + withOnlyNumber.charAt(withOnlyNumber.length()-1);
-				}
+				String withOnlyNumber = convertNineToNumber.replaceAll("[a-zA-Z]", "");
+				String nb = withOnlyNumber.charAt(0) + "" + withOnlyNumber.charAt(withOnlyNumber.length()-1);
 				res += Integer.valueOf(nb);
 
 				line = reader.readLine();
