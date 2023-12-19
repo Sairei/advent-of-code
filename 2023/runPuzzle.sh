@@ -61,3 +61,9 @@ echo
 cd ../day_11
 echo "-----  DAY 11  -----"
 java puzzle_day.java
+
+echo
+
+cd ../day_12
+echo "-----  DAY 12  -----"
+java puzzle_day.java
