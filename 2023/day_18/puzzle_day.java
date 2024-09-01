@@ -85,13 +85,12 @@ public class PuzzleDay {
 	}
 
 	public static ArrayList<DigStep> map = new ArrayList<>();
-	public static ArrayList<String> digMap = new ArrayList<>();
     public static void main(String[] args) {
 		long res_1 = solvePuzzle1();
 		System.out.println("Result for puzzle 1 = " + res_1);
 
-		// long res_2 = solvePuzzle2();
-		// System.out.println("Result for puzzle 2 = " + res_2);
+		long res_2 = solvePuzzle2();
+		System.out.println("Result for puzzle 2 = " + res_2);
     }
 
 	// Transform file into ArrayList
@@ -136,76 +135,34 @@ public class PuzzleDay {
 				case '2': direction = "L"; break;
 				case '3': direction = "U"; break;
 			}
-			map.add(new DigStep(direction, Integer.parseInt(hex, 16), "#"+hex));
+			map.add(new DigStep(direction, Integer.parseInt(hex.substring(0, hex.length()-1), 16), "#"+hex));
 		}
 	}
 
-	private static long dig() {
-		Pos start = new Pos(0, 0);
-		Set<Pos> digEdge = new HashSet<>();
-		for (DigStep step : map) {
-			for (int i=0; i<step.step; i++) {
-				start.move(step.direction);
-				digEdge.add(new Pos(start.row, start.col));
-			}
-		}
-
-		int minRow = digEdge.stream().mapToInt(p -> p.row).min().getAsInt();
-		int maxRow = digEdge.stream().mapToInt(p -> p.row).max().getAsInt();
-        int minCol = digEdge.stream().mapToInt(p -> p.col).min().getAsInt();
-        int maxCol = digEdge.stream().mapToInt(p -> p.col).max().getAsInt();
-
-		long res = 0L;
-		for (var r = minRow; r < maxRow + 1; r++) {
-			String digRow = "";
-            int crossed = 0;
-            for (var c = minCol ; c < maxCol + 1; c++) {
-				Pos actualPos = new Pos(r, c);
-                if (digEdge.contains(new Pos(r, c))) {
-                    res++;
-					digRow += "#";
-					if (!digEdge.contains(new Pos(r, c-1)) && !digEdge.contains(new Pos(r, c+1))
-                        || (!digEdge.contains(new Pos(r, c-1)) && digEdge.contains(new Pos(r+1, c)) && digEdge.contains(new Pos(r, c+1)))
-                        || (!digEdge.contains(new Pos(r, c+1)) && digEdge.contains(new Pos(r+1, c)) && digEdge.contains(new Pos(r, c-1)))) {
-                        crossed++;
-                    }
-					continue;
-                }
-				if (crossed % 2 != 0) {
-                    res++;
-					digRow += ".";
-                } else {
-					digRow += " ";
-				}
-            }
-			digMap.add(digRow);
-        }
-		return res;
-	}
-
-	private static double digWithCorner() {
+	private static double dig() {
 		Pos start = new Pos(0, 0);
 		List<Pos> digCorners = new ArrayList<>();
 		for (DigStep step : map) {
+			digCorners.add(new Pos(start.row, start.col));
 			start.move(step.direction, step.step);
-			for (int i=0; i<step.step; i++) {
-				digCorners.add(new Pos(start.row, start.col));
-			}
 		}
 
-		long maxRight = map.stream().filter(d -> d.direction.equals("R")).mapToLong(d -> d.step).sum();
-		long maxDown = map.stream().filter(d -> d.direction.equals("D")).mapToLong(d -> d.step).sum();
-		
+		long nbStep = map.stream().mapToLong(d -> d.step).sum();
+
         double area = 0.0;
 
 		int n = digCorners.size();
         int j = n - 1;
         for (int i = 0; i < n; i++) {
-            area += (digCorners.get(j).row + digCorners.get(i).row) * (digCorners.get(j).col - digCorners.get(i).col);
+			long startX = digCorners.get(j).row;
+			long startY = digCorners.get(j).col;
+			long nextX = digCorners.get(i).row;
+			long nextY = digCorners.get(i).col;
+            area += (startY + nextY) * (startX - nextX);
             j = i;
         }
 
-        return Math.abs(area / 2.0) + (maxRight + maxDown + 1);
+        return Math.abs(area)/2 + nbStep/2 + 1;
 	}
 
 	/********************/
@@ -218,7 +175,7 @@ public class PuzzleDay {
 		
 		constructMap(reader);
 
-		res = dig();
+		res = (long) dig();
 
 		return res;
 	}
@@ -228,14 +185,12 @@ public class PuzzleDay {
 	/*********************/
 
 	private static long solvePuzzle2() {
-		//** DOESN'T WORK !! **/
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("data_test.txt");
-		// ArrayList<String> reader = fileToArrayList("puzzle_day_18.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_day_18.txt");
 		
 		constructMapWithHexa(reader);
 
-		res = (long) digWithCorner();
+		res = (long) dig();
 
 		return res;
 	}
