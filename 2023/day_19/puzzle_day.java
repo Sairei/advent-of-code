@@ -138,28 +138,23 @@ public class PuzzleDay {
 	}
 
 	public static boolean work(Entrie entrie, Workflow workflow) {
-		boolean res = false;
 		for (Rule rule : workflow.rules) {
 			if (rule.categorie.isEmpty()) {
 				if (validateWork(rule.to) != null) {
-					res = validateWork(rule.to);
-					break;
+					return validateWork(rule.to);
 				}
-				res = work(entrie, workflowMap.get(rule.to));
-				break;
+				return work(entrie, workflowMap.get(rule.to));
 			} else {
 				long wantedVal = entrie.map.get(rule.categorie);
 				if (rule.validate(wantedVal)) {
 					if (validateWork(rule.to) != null) {
-						res = validateWork(rule.to);
-						break;
+						return validateWork(rule.to);
 					}
-					res = work(entrie, workflowMap.get(rule.to));
-					break;
+					return work(entrie, workflowMap.get(rule.to));
 				}
 			}
 		}
-		return res;
+		return false;
 	}
 
 	public static long startWorkWithRange() {
