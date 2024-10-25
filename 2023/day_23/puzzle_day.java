@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.stream.Stream;
 import java.util.*;
 
 public class PuzzleDay {
@@ -39,6 +40,7 @@ public class PuzzleDay {
 	}
 
     public static record State(Pos position, long steps, Set<String> visited) {}
+    public static record NodeState(Pos position, long steps) {}
 	public static List<List<Integer>> map = new ArrayList<>();
 	public static Pos start, end;
 	public static int maxRow, maxCol;
@@ -46,8 +48,8 @@ public class PuzzleDay {
 		long res_1 = solvePuzzle1();
 		System.out.println("Result for puzzle 1 = " + res_1);
 
-		// long res_2 = solvePuzzle2();
-		// System.out.println("Result for puzzle 2 = " + res_2);
+		long res_2 = solvePuzzle2();
+		System.out.println("Result for puzzle 2 = " + res_2);
     }
 
 	// Transform file into ArrayList
@@ -128,7 +130,7 @@ public class PuzzleDay {
 		}
 	}
 
-	public static long walk(boolean isPart2) {
+	public static long walk() {
 		long res = 0;
 
 		Queue<State> queue = new PriorityQueue<State>(Comparator.comparing(State::steps).reversed());
@@ -136,7 +138,7 @@ public class PuzzleDay {
 		while(!queue.isEmpty()) {
 			State current = queue.poll();
 			Pos point = current.position();
-			int tileType = isPart2 ? 0 : map.get(point.x).get(point.y);
+			int tileType = map.get(point.x).get(point.y);
 			long newStep = current.steps + 1;
 			Set<String> visited = current.visited();
 
@@ -179,6 +181,91 @@ public class PuzzleDay {
 		return res;
 	}
 
+	public static long walkWithoutGroundSlippery() {
+		long res = 0;
+
+		Map<String, Pos> junctions = new HashMap<>();
+        junctions.put(start.toString(), start);
+        junctions.put(end.toString(), end);
+		for (int x=0; x<maxRow; x++) {
+			for (int y=0; y<maxCol; y++) {
+				Pos pos = new Pos(x, y);
+				long nbNext = Stream.of(
+					pos.getAdjacentPoint("U"),
+                    pos.getAdjacentPoint("L"),
+                    pos.getAdjacentPoint("D"),
+                    pos.getAdjacentPoint("R")
+				).filter(p -> isOnGrid(p) && isNotForest(p)).count();
+
+				if (nbNext > 2) {
+					junctions.put(pos.toString(), pos);
+				}
+			}
+		}
+
+		Map<String, Map<String, NodeState>> nodeMap = new HashMap<>();
+		for (Map.Entry<String, Pos> entry : junctions.entrySet()) {
+			List<State> queue = new ArrayList<>();
+			queue.add(new State(entry.getValue(), 0, Set.of(entry.getKey())));
+			nodeMap.put(entry.getKey(), new HashMap<>());
+            while(!queue.isEmpty()) {
+                State current = queue.remove(0);
+                Pos point = current.position();
+				Set<String> visited = current.visited();
+
+                if (junctions.containsKey(point.toString())
+                    && !point.equals(entry.getValue())) {
+                    nodeMap.get(entry.getKey())
+                        .put(point.toString(), new NodeState(point, current.steps()));
+                    continue;
+                }
+
+                List<Pos> nextPos = Stream.of(
+					point.getAdjacentPoint("U"),
+                    point.getAdjacentPoint("L"),
+                    point.getAdjacentPoint("D"),
+                    point.getAdjacentPoint("R")
+                )
+				.filter(p -> isOnGrid(p) && isNotForest(p) && isNotVisited(p, visited))
+				.toList();
+
+                for (Pos p : nextPos) {
+					Set<String> copy = new HashSet<>(visited);
+					copy.add(p.toString());
+                    queue.add(new State(p, current.steps() + 1, copy));
+                }
+            }
+		}
+
+		Queue<State> queue = new PriorityQueue<State>(Comparator.comparing(State::steps).reversed());
+		queue.add(new State(start, 0, Set.of(start.toString())));
+		while(!queue.isEmpty()) {
+			State current = queue.poll();
+			Pos point = current.position();
+			Set<String> visited = current.visited();
+
+			if (point.toString().equals(end.toString())) {
+				res = Math.max(res, current.steps);
+				continue;
+			}
+
+			for (Map.Entry<String, NodeState> entry : nodeMap.get(point.toString()).entrySet()) {
+				String key = entry.getKey();
+				Pos p = entry.getValue().position();
+				long step = entry.getValue().steps();
+
+				long newStep = current.steps() + step;
+				if (isNotVisited(p, visited)) {
+					Set<String> copy = new HashSet<>(visited);
+					copy.add(p.toString());
+					queue.add(new State(p, newStep, copy));
+				}
+			}
+		}
+
+		return res;
+	}
+
 	/********************/
 	/** The first part **/
 	/********************/
@@ -188,7 +275,7 @@ public class PuzzleDay {
 
 		constructMap(reader);
 
-		return walk(false);
+		return walk();
 	}
 
 	/*********************/
@@ -196,11 +283,10 @@ public class PuzzleDay {
 	/*********************/
 	
 	private static long solvePuzzle2() {
-		ArrayList<String> reader = fileToArrayList("data_test.txt");
-		// ArrayList<String> reader = fileToArrayList("puzzle_day_23.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_day_23.txt");
 
 		constructMap(reader);
 
-		return walk(true);
+		return walkWithoutGroundSlippery();
 	}
 }
