@@ -6,24 +6,6 @@ import java.util.*;
 
 public class PuzzleDay {
 
-	public static class Coordinate {
-		long x, y, z;
-
-		public Coordinate(long x, long y, long z) {
-			this.x = x;
-			this.y = y;
-			this.z = z;
-		}
-
-		@Override
-		public String toString() {
-			return "[" + x +
-				", " + y +
-				", " + z +
-				']';
-		}
-	}
-
 	public static class Pos3D {
 		long x, y, z;
 		double xDouble, yDouble, zDouble;
@@ -179,72 +161,6 @@ public class PuzzleDay {
 		return xInFuture && yInFuture && zInFuture;
 	}
 
-	private static void findXAndY(Hailstone hs) {
-		double[][] coefs = new double[4][4];
-		double[] r = new double[4];
-		for (int i=0; i<4; i++) {
-			Hailstone h1 = map.get(i);
-			Hailstone h2 = map.get(i+1);
-            coefs[i][0] = h2.velocity.y - h1.velocity.y;
-            coefs[i][1] = h1.velocity.x - h2.velocity.x;
-            coefs[i][2] = h1.instantPos.y - h2.instantPos.y;
-            coefs[i][3] = h2.instantPos.x - h1.instantPos.x;
-			r[i] = 
-				-h1.instantPos.x * h1.velocity.y + h1.instantPos.y * h1.velocity.x
-				+ h2.instantPos.x * h2.velocity.y - h2.instantPos.y * h2.velocity.x;
-		}
-
-		gaussianElimination(coefs, r);
-
-		hs.instantPos.x = Math.round(r[0]);
-        hs.instantPos.y = Math.round(r[1]);
-        hs.velocity.x = Math.round(r[2]);
-        hs.velocity.y = Math.round(r[3]);
-	}
-
-	private static void findZ(Hailstone hs) {
-		double[][] coefs = new double[2][2];
-		double[] r = new double[2];
-		for (int i=0; i<2; i++) {
-			Hailstone h1 = map.get(i);
-			Hailstone h2 = map.get(i+1);
-            coefs[i][0] = h1.velocity.x - h2.velocity.x;
-            coefs[i][1] = h2.instantPos.x - h1.instantPos.x;
-			r[i] = 
-				-h1.instantPos.x * h1.velocity.z + h1.instantPos.z * h1.velocity.x
-				+ h2.instantPos.x * h2.velocity.z - h2.instantPos.z * h2.velocity.x
-				- ((h2.velocity.z - h1.velocity.z) * hs.instantPos.x) - ((h1.instantPos.z - h2.instantPos.z) * hs.velocity.x);
-		}
-
-		gaussianElimination(coefs, r);
-
-		hs.instantPos.z = Math.round(r[0]);
-        hs.velocity.z = Math.round(r[1]);
-	}
-
-	private static void gaussianElimination(double[][] coefficients, double r[]) {
-        int nrVariables = coefficients.length;
-        for (int i = 0; i < nrVariables; i++) {
-            // Select pivot
-            double pivot = coefficients[i][i];
-            // Normalize row i
-            for (int j = 0; j < nrVariables; j++) {
-                coefficients[i][j] = coefficients[i][j] / pivot;
-            }
-            r[i] = r[i] / pivot;
-            // Sweep using row i
-            for (int k = 0; k < nrVariables; k++) {
-                if (k != i) {
-                    double factor = coefficients[k][i];
-                    for (int j = 0; j < nrVariables; j++) {
-                        coefficients[k][j] = coefficients[k][j] - factor * coefficients[i][j];
-                    }
-                    r[k] = r[k] - factor * r[i];
-                }
-            }
-        }
-    }
-
 	/********************/
 	/** The first part **/
 	/********************/
@@ -278,16 +194,73 @@ public class PuzzleDay {
 	private static long solvePuzzle2() {
 		long res = 0;
 		ArrayList<String> reader = fileToArrayList("puzzle_day_24.txt");
+
 		constructMap(reader);
 
-		/* Thanks to Reddit AOC thread for the mention of Gaussian Elimination */
-
-		Hailstone hsRes = new Hailstone(new Pos3D(0, 0, 0), new Velocity(0, 0, 0));
-		
-		findXAndY(hsRes);
-		findZ(hsRes);
-		
-		res = hsRes.instantPos.x + hsRes.instantPos.y + hsRes.instantPos.z;
+		Hailstone h1 = map.get(0);
+        Hailstone h2 = map.get(1);
+ 
+        int range = 500;
+        for (int vx = -range; vx <= range; vx++) {
+            for (int vy = -range; vy <= range; vy++) {
+                for (int vz = -range; vz <= range; vz++) {
+ 
+                    if (vx == 0 || vy == 0 || vz == 0) {
+                        continue;
+                    }
+ 
+                    long A = h1.instantPos.x;
+					long a = h1.velocity.x - vx;
+                    long B = h1.instantPos.y;
+					long b = h1.velocity.y - vy;
+                    long C = h2.instantPos.x;
+					long c = h2.velocity.x - vx;
+                    long D = h2.instantPos.y;
+					long d = h2.velocity.y - vy;
+ 
+                    // skip if division by 0
+                    if (c == 0 || (a * d) - (b * c) == 0) {
+                        continue;
+                    }
+ 
+                    // Rock intercepts H1 at time t
+                    long t = (d * (C - A) - c * (D - B)) / ((a * d) - (b * c));
+ 
+                    // Calculate starting position of rock from intercept point
+                    long x = h1.instantPos.x + h1.velocity.x * t - vx * t;
+                    long y = h1.instantPos.y + h1.velocity.y * t - vy * t;
+                    long z = h1.instantPos.z + h1.velocity.z * t - vz * t;
+ 
+                    
+                    // check if this rock throw will hit all hailstones
+ 
+                    boolean hitall = true;
+                    for (int i = 0; i < map.size(); i++) {
+ 
+                        Hailstone h = map.get(i);
+                        long u;
+                        if (h.velocity.x != vx) {
+                            u = (x - h.instantPos.x) / (h.velocity.x - vx);
+                        } else if (h.velocity.y != vy) {
+                            u = (y - h.instantPos.y) / (h.velocity.y - vy);
+                        } else if (h.velocity.z != vz) {
+                            u = (z - h.instantPos.z) / (h.velocity.z - vz);
+                        } else {
+                            throw new RuntimeException();
+                        }
+ 
+                        if ((x + u * vx != h.instantPos.x + u * h.velocity.x) || (y + u * vy != h.instantPos.y + u * h.velocity.y) || ( z + u * vz != h.instantPos.z + u * h.velocity.z)) {
+                            hitall = false;
+                            break;
+                        }
+                    }
+ 
+                    if (hitall) {
+						return x+y+z;
+                    }
+                }
+            }
+        }
 		
         return res;
     }
