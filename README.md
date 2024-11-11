@@ -5,6 +5,10 @@ Here is my repo for the [Advent of code](https://adventofcode.com/) !
 Every day in December befor Christmas, we have a challenge to face : a developer advent calendar !
 
 - **2023 :** 50 :star:
+- **2024 :** 0 :star:
+
+## 2024
+=> **Language** : Python
 
 ## 2023
 => **Language** : Java 17
