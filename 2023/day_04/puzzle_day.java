@@ -17,7 +17,7 @@ public class PuzzleDay {
 	private static int solvePuzzle1() {
 		int res = 0;
 
-		ArrayList<String> reader = fileToArrayListOfLines("puzzle_day_4.txt");
+		ArrayList<String> reader = fileToArrayListOfLines("puzzle_data.txt");
 
 		for (String line : reader) {
 			int nbWin = 0;
@@ -40,7 +40,7 @@ public class PuzzleDay {
 	private static int solvePuzzle2() {
 		int res = 0;
 
-		ArrayList<String> reader = fileToArrayListOfLines("puzzle_day_4.txt");
+		ArrayList<String> reader = fileToArrayListOfLines("puzzle_data.txt");
 		int[] copy = new int[reader.size()];
 
 		for (int i=0; i<reader.size(); i++) {

@@ -55,7 +55,7 @@ public class PuzzleDay {
 		long res = Long.MAX_VALUE;
 
 		int nbCorresponding = 0;
-		ArrayList<String> reader = fileToArrayListOfLines("puzzle_day_5.txt");
+		ArrayList<String> reader = fileToArrayListOfLines("puzzle_data.txt");
 		ArrayList<ArrayList<Long>> seedsMap = new ArrayList<ArrayList<Long>>();
 
 		for (int i=0; i<reader.size(); i++) {
@@ -135,7 +135,7 @@ public class PuzzleDay {
 	private static long solvePuzzle2() {
  		TreeMap<Long, String> inputMap = new TreeMap<>();
 
-		ArrayList<String> reader = fileToArrayListOfLines("puzzle_day_5.txt");
+		ArrayList<String> reader = fileToArrayListOfLines("puzzle_data.txt");
 		long index = 0;
 		for (String line : reader) {
 			if (line.startsWith("seeds: ")) {

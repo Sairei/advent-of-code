@@ -109,7 +109,7 @@ public class PuzzleDay {
 
 	private static int solvePuzzle1() {
 		int res = 0;
-		ArrayList<Hands> reader = fileToArrayListOfHands("puzzle_day_7.txt");
+		ArrayList<Hands> reader = fileToArrayListOfHands("puzzle_data.txt");
 
 		List<Hands> sorted = reader.stream()
 			.sorted((Hands h1, Hands h2) -> {
@@ -141,7 +141,7 @@ public class PuzzleDay {
 
 	private static int solvePuzzle2() {
  		int res = 0;
-		ArrayList<Hands> reader = fileToArrayListOfHands("puzzle_day_7.txt");
+		ArrayList<Hands> reader = fileToArrayListOfHands("puzzle_data.txt");
 
 		for (Hands h : reader) {
 			jokerTreatment(h);

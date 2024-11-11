@@ -107,7 +107,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle1() {
 		long res = 0;
-		ArrayList<Input> reader = fileToArrayList("puzzle_day_12.txt");
+		ArrayList<Input> reader = fileToArrayList("puzzle_data.txt");
 
 		for (Input i : reader) {
 			long nbPerm = countPermutation(i);
@@ -123,7 +123,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle2() {
 		long res = 0;
-		ArrayList<Input> reader = fileToArrayList("puzzle_day_12.txt");
+		ArrayList<Input> reader = fileToArrayList("puzzle_data.txt");
 
 		for (Input i : reader) {
 			Input unfoldInput = unfoldInput(i, 5);

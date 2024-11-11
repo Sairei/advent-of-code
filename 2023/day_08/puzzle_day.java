@@ -64,7 +64,7 @@ public class PuzzleDay {
 
 	private static int solvePuzzle1() {
 		int res = 0;
-		Map<String, Node> reader = fileToMapOfNode("puzzle_day_8.txt");
+		Map<String, Node> reader = fileToMapOfNode("puzzle_data.txt");
 
 		Node actualNode = reader.get("AAA");
 		while (!actualNode.name.equals("ZZZ")) {
@@ -87,7 +87,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle2() {
  		long res = 0;
-		Map<String, Node> reader = fileToMapOfNode("puzzle_day_8.txt");
+		Map<String, Node> reader = fileToMapOfNode("puzzle_data.txt");
 
 		List<String> keyWithEnd = reader.keySet()
                      .stream()

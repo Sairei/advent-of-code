@@ -75,7 +75,7 @@ public class PuzzleDay {
 		arrayOfGalaxies = new ArrayList<Pos>();
 
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_11.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 		expendUnivers(reader);
 
 		int nbRowExpend = 0;
@@ -118,7 +118,7 @@ public class PuzzleDay {
 		
  		long res = 0;
 		int expendSize = 999999;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_11.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 		expendUnivers(reader);
 
 		int nbRowExpend = 0;

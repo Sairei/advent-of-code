@@ -60,7 +60,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle() {
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_25.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 
 		constructMap(reader);
 

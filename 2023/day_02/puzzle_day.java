@@ -21,7 +21,7 @@ public class PuzzleDay {
 		bag.put("blue", 14);
 
 		try {
-			reader = new BufferedReader(new FileReader("puzzle_day_2.txt"));
+			reader = new BufferedReader(new FileReader("puzzle_data.txt"));
 			String line = reader.readLine();
 
 			while (line != null) {
@@ -59,7 +59,7 @@ public class PuzzleDay {
 		BufferedReader reader;
 
 		try {
-			reader = new BufferedReader(new FileReader("puzzle_day_2.txt"));
+			reader = new BufferedReader(new FileReader("puzzle_data.txt"));
 			String line = reader.readLine();
 
 			while (line != null) {

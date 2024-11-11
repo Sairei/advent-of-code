@@ -16,7 +16,7 @@ public class PuzzleDay {
 		BufferedReader reader;
 
 		try {
-			reader = new BufferedReader(new FileReader("puzzle_day_1.txt"));
+			reader = new BufferedReader(new FileReader("puzzle_data.txt"));
 			String line = reader.readLine();
 
 			while (line != null) {
@@ -40,7 +40,7 @@ public class PuzzleDay {
 		BufferedReader reader;
 
 		try {
-			reader = new BufferedReader(new FileReader("puzzle_day_1.txt"));
+			reader = new BufferedReader(new FileReader("puzzle_data.txt"));
 			String line = reader.readLine();
 
 			while (line != null) {

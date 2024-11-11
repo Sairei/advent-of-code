@@ -91,7 +91,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle1() {
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_15.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 
 		for (String sentence : reader) {
 			res += parseSentence(sentence);
@@ -106,7 +106,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle2() {
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_15.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 
 		for (String code : reader) {
 			constructBoxs(code);

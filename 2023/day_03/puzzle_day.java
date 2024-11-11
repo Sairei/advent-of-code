@@ -16,7 +16,7 @@ public class PuzzleDay {
     }
 
 	private static int solvePuzzle1() {
-		ArrayList<String> lines = fileToArrayListOfLines("puzzle_day_3.txt");
+		ArrayList<String> lines = fileToArrayListOfLines("puzzle_data.txt");
 		int res = 0;
 
 		for(int i=0; i<lines.size(); i++) {
@@ -51,7 +51,7 @@ public class PuzzleDay {
 	}
 
 	private static int solvePuzzle2() {
-		ArrayList<String> lines = fileToArrayListOfLines("puzzle_day_3.txt");
+		ArrayList<String> lines = fileToArrayListOfLines("puzzle_data.txt");
 		int res = 0;
 
 		for(int i=0; i<lines.size(); i++) {

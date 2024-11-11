@@ -166,7 +166,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle1() {
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_16.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 
 		contructMap(reader);
 
@@ -187,7 +187,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle2() {
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_16.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 
 		contructMap(reader);
 

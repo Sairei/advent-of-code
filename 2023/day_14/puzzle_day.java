@@ -118,7 +118,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle1() {
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_14.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 
 		slideNorth(reader);
 		for (int i=0; i<reader.size(); i++) {
@@ -137,7 +137,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle2() {
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_14.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 		Map<ArrayList<String>, Long> memorize= new LinkedHashMap<ArrayList<String>, Long>();
 
 		int loop=0;

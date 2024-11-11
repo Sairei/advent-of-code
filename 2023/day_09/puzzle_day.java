@@ -94,7 +94,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle1() {
 		long res = 0;
-		ArrayList<List<Long>> reader = fileToArrayList("puzzle_day_9.txt");
+		ArrayList<List<Long>> reader = fileToArrayList("puzzle_data.txt");
 
 		for (List<Long> historic : reader) {
 			res += predictNextValue(historic);
@@ -109,7 +109,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle2() {
  		long res = 0;
-		ArrayList<List<Long>> reader = fileToArrayList("puzzle_day_9.txt");
+		ArrayList<List<Long>> reader = fileToArrayList("puzzle_data.txt");
 
 		for (List<Long> historic : reader) {
 			res += predictPrevValue(historic);

@@ -57,7 +57,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle1() {
 		long res = 1;
-		ArrayList<String> reader = fileToArrayListOfLines("puzzle_day_6.txt");
+		ArrayList<String> reader = fileToArrayListOfLines("puzzle_data.txt");
 
 		String[] times = reader.get(0).replace("Time:", "").trim().replaceAll(" +", " ").split(" ");
 		String[] distances = reader.get(1).replace("Distance:", "").trim().replaceAll(" +", " ").split(" ");
@@ -75,7 +75,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle2() {
  		long res = 1;
-		ArrayList<String> reader = fileToArrayListOfLines("puzzle_day_6.txt");
+		ArrayList<String> reader = fileToArrayListOfLines("puzzle_data.txt");
 
 		String[] times = reader.get(0).replace("Time:", "").trim().replaceAll(" +", "").split(" ");
 		String[] distances = reader.get(1).replace("Distance:", "").trim().replaceAll(" +", "").split(" ");

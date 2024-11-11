@@ -12,6 +12,6 @@ def part2(data):
 
 
 data = read_data("data_test.txt")
-# data = read_data("puzzle_day.txt")
-print('Result for puzzle 1 = :', part1(constructData(data)))
-#print('Result for puzzle 1 = :', part2(constructData(data)))
+# data = read_data("puzzle_data.txt")
+print('Result for puzzle 1 = ', part1(constructData(data)))
+#print('Result for puzzle 2 = ', part2(constructData(data)))

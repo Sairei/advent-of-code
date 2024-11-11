@@ -158,7 +158,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle1() {
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_13.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 
 		ArrayList<String> pattern = new ArrayList<>();
 		for (int l=0; l<reader.size(); l++) {
@@ -190,7 +190,7 @@ public class PuzzleDay {
 
 	private static long solvePuzzle2() {
 		long res = 0;
-		ArrayList<String> reader = fileToArrayList("puzzle_day_13.txt");
+		ArrayList<String> reader = fileToArrayList("puzzle_data.txt");
 
 		ArrayList<String> pattern = new ArrayList<>();
 		for (int l=0; l<reader.size(); l++) {
