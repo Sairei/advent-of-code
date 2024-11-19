@@ -4,7 +4,7 @@ Here is my repo for the [Advent of code](https://adventofcode.com/) !
 
 Every day in December befor Christmas, we have a challenge to face : a developer advent calendar !
 
-- **2022 :** 18 :star:
+- **2022 :** 20 :star:
 - **2023 :** 50 :star:
 - **2024 :** 0 :star:
 
@@ -44,7 +44,7 @@ Every day in December befor Christmas, we have a challenge to face : a developer
 | 7   | :heavy_check_mark: | :heavy_check_mark: |   | 20  | :x:                | :x:                |
 | 8   | :heavy_check_mark: | :heavy_check_mark: |   | 21  | :x:                | :x:                |
 | 9   | :heavy_check_mark: | :heavy_check_mark: |   | 22  | :x:                | :x:                |
-| 10  | :x:                | :x:                |   | 23  | :x:                | :x:                |
+| 10  | :heavy_check_mark: | :heavy_check_mark: |   | 23  | :x:                | :x:                |
 | 11  | :x:                | :x:                |   | 24  | :x:                | :x:                |
 | 12  | :x:                | :x:                |   | 25  | :x:                | :x:                |
 | 13  | :x:                | :x:                |
