@@ -1,4 +1,4 @@
-const { data_test } = require('./data_test.js');
+const { data_test, data_test_2 } = require('./data_test.js');
 const { puzzle_data } = require('./puzzle_data.js');
 
 class Pos {
@@ -7,19 +7,19 @@ class Pos {
         this.y = y;
     }
 
-    move(direction, nb) {
+    move(direction) {
         switch (direction) {
             case 'R':
-                this.y += nb
+                this.y++
                 break;
             case 'L':
-                this.y -= nb
+                this.y--
                 break;
             case 'U':
-                this.x += nb
+                this.x++
                 break;
             case 'D':
-                this.x -= nb
+                this.x--
                 break;
             default:
                 console.log(`Wrong direction`);
@@ -65,7 +65,7 @@ function part1(data) {
     for (let i=0; i<data.length; i++) {
         let move = data[i]
         for (let m=0; m<Number(move[1]); m++) {
-            H.move(move[0], 1)
+            H.move(move[0])
             if (!H.isAdjacentOrSame(T)) {
                 move_tail(T, H)
                 if (!tailsPos.includes(T.toString())) {
@@ -79,11 +79,34 @@ function part1(data) {
 }
 
 function part2(data) {
-    return 0
+    let nbKnot = 10
+    let knots = []
+    for (let i=0; i<nbKnot; i++) {
+        knots.push(new Pos(0, 0))
+    }
+
+    let tailsPos = []
+    tailsPos.push(knots[nbKnot-1].toString())
+
+    for (let i=0; i<data.length; i++) {
+        let move = data[i]
+        for (let m=0; m<Number(move[1]); m++) {
+            knots[0].move(move[0])
+            for (let i=1; i<nbKnot; i++) {
+                if (!knots[i-1].isAdjacentOrSame(knots[i])) {
+                    move_tail(knots[i], knots[i-1])
+                }
+            }
+            if (!tailsPos.includes(knots[nbKnot-1].toString())) {
+                tailsPos.push(knots[nbKnot-1].toString())
+            }
+        }
+    }
+
+    return tailsPos.length
 }
 
 
-// let data = compute_data(data_test)
 let data = compute_data(puzzle_data)
 console.log('Result for puzzle 1 = ', part1(data))
-// console.log('Result for puzzle 2 = ', part2(data))
+console.log('Result for puzzle 2 = ', part2(data))
