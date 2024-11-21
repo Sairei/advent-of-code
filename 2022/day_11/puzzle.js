@@ -40,10 +40,7 @@ function play_with_item(item, monkeyProps) {
     let operation = monkeyProps[1].split(" ")
     let op1 = operation[0] == "old" ? item : Number(operation[0])
     let op2 = operation[2] == "old" ? item : Number(operation[2])
-    let c = computation(op1, operation[1], op2)
-
-    // get borred
-    return Math.floor(c / 3)
+    return computation(op1, operation[1], op2)
 }
 
 function test_worred_item(item, testValue) {
@@ -64,7 +61,7 @@ function part1(data) {
 
                 let item = Number(value[0].shift())
 
-                let newItem = play_with_item(item, value);
+                let newItem = Math.floor(play_with_item(item, value) / 3);
                 if (test_worred_item(newItem, value[2])) {
                     map.get(value[3][0])[0].push(newItem.toString())
                 } else {
@@ -79,11 +76,37 @@ function part1(data) {
 }
 
 function part2(data) {
-    return 0
+    let itemsUse = []
+    let commonMultiple = 1
+    for (let i=0; i<data.size; i++) {
+        itemsUse.push(0)
+        commonMultiple *= data.get(i.toString())[2]
+    }
+
+    for (let cycle=0; cycle<10000; cycle++) {
+        data.forEach((value, key, map) => {
+            while (value[0].length != 0) {
+                itemsUse[Number(key)] += 1
+
+                let item = Number(value[0].shift())
+
+                let newItem = Math.floor(play_with_item(item, value) % commonMultiple);
+                if (test_worred_item(newItem, value[2])) {
+                    map.get(value[3][0])[0].push(newItem.toString())
+                } else {
+                    map.get(value[3][1])[0].push(newItem.toString())
+                }
+            }
+        })
+    }
+
+    itemsUse = itemsUse.sort((a, b) => b - a)
+    return (itemsUse[0] * itemsUse[1])
 }
 
 
-// let data = compute_data(data_test)
 let data = compute_data(puzzle_data)
 console.log('Result for puzzle 1 = ', part1(data))
-// console.log('Result for puzzle 2 = ', part1(data))
+
+data = compute_data(puzzle_data)
+console.log('Result for puzzle 2 = ', part2(data))
