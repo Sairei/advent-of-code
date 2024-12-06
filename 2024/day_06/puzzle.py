@@ -12,6 +12,7 @@ def constructData(data):
         if "^" in row:
             startX = data.split("\n").index(row)
             startY = list(row).index("^")
+            m[startX][startY] = "."
     return [m, PosWithDirection(startX, startY, "U")]
 
 
@@ -31,12 +32,19 @@ class PosWithDirection:
         self.y = y
         self.direction = d
 
-    def __str__(self):
+    def pos_dir_str(self):
+        return "[" + str(self.x) + "," + str(self.y) + "] => " + self.direction
+
+    def pos_str(self):
         return "[" + str(self.x) + "," + str(self.y) + "]"
 
     def move_forward(self):
         self.x += DIRECTION[self.direction][0]
         self.y += DIRECTION[self.direction][1]
+
+    def move_back(self):
+        self.x -= DIRECTION[self.direction][0]
+        self.y -= DIRECTION[self.direction][1]
 
     def turn_right(self):
         indexDir = list(DIRECTION).index(self.direction)
@@ -62,8 +70,8 @@ def part1(data):
     res = []
     p = startPos.copy()
     while is_in_grid(mapTile, p):
-        if not p.__str__() in res:
-            res.append(p.__str__())
+        if not p.pos_str() in res:
+            res.append(p.pos_str())
         newP = p.copy()
         newP.move_forward()
         if is_in_grid(mapTile, newP) and mapTile[newP.x][newP.y] == "#":
@@ -77,14 +85,54 @@ def part1(data):
 ## Solver part 2 ##
 ###################
 def part2(data):
+    mapTile = data[0]
+    startPos = data[1]
+
+    firstTravel = []
+    p = startPos.copy()
+    while is_in_grid(mapTile, p):
+        if not p.pos_str() in firstTravel:
+            firstTravel.append(p.pos_str())
+        newP = p.copy()
+        newP.move_forward()
+        if is_in_grid(mapTile, newP) and mapTile[newP.x][newP.y] == "#":
+            p.turn_right()
+        p.move_forward()
+
     res = 0
+    firstTravel = firstTravel[1:]
+    for v in firstTravel:
+        visited = [startPos.pos_dir_str()]
+        x, y = v[1:-1].split(',')
+        m = [x[:] for x in mapTile]
+        m[int(x)][int(y)] = "#"
+        
+        p = startPos.copy()
+        walk = True
+        while walk:
+            newP = p.copy()
+            while is_in_grid(m, newP) and m[newP.x][newP.y] == ".":
+                newP.move_forward()            
+
+            if not is_in_grid(m, newP):
+                walk = False
+                break
+            
+            p = newP.copy()
+            p.move_back()
+            p.turn_right()
+            if p.pos_dir_str() in visited:
+                walk = False
+                res += 1
+            
+            visited.append(p.pos_dir_str())
+
     return res
 
 
 ##########
 ## MAIN ##
 ##########
-# data = read_data("data_test.txt")
 data = read_data("puzzle_data.txt")
 print('Result for puzzle 1 = ', part1(constructData(data)))
-# print('Result for puzzle 2 = ', part2(constructData(data)))
+print('Result for puzzle 2 = ', part2(constructData(data)))
