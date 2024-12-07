@@ -6,7 +6,7 @@ Every day in December befor Christmas, we have a challenge to face : a developer
 
 - **2022 :** 30 :star:
 - **2023 :** 50 :star:
-- **2024 :** 12 :star:
+- **2024 :** 14 :star:
 
 ## 2024
 => **Language** : Python
@@ -19,6 +19,7 @@ Every day in December befor Christmas, we have a challenge to face : a developer
 | 4   | :heavy_check_mark: | :heavy_check_mark: |
 | 5   | :heavy_check_mark: | :heavy_check_mark: |
 | 6   | :heavy_check_mark: | :heavy_check_mark: |
+| 7   | :heavy_check_mark: | :heavy_check_mark: |
 
 ## 2023
 => **Language** : Java 17
