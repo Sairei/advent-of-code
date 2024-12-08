@@ -1,5 +1,11 @@
-const { data_test, data_test_2 } = require('./data_test.js');
-const { puzzle_data } = require('./puzzle_data.js');
+var fs = require('fs');
+require.extensions['.txt'] = function (module, filename) {
+    module.exports = fs.readFileSync(filename, 'utf8');
+};
+
+const data_test = require('./data_test_1.txt');
+const data_test_2 = require('./data_test_2.txt');
+const puzzle_data = require('./puzzle_data.txt');
 
 class Pos {
     constructor(x, y) {

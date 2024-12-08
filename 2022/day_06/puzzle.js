@@ -1,5 +1,14 @@
-const { data_test, data_test_2, data_test_3, data_test_4, data_test_5 } = require('./data_test.js');
-const { puzzle_data } = require('./puzzle_data.js');
+var fs = require('fs');
+require.extensions['.txt'] = function (module, filename) {
+    module.exports = fs.readFileSync(filename, 'utf8');
+};
+
+const data_test = require('./data_test_1.txt');
+const data_test_2 = require('./data_test_2.txt')
+const data_test_3 = require('./data_test_3.txt')
+const data_test_4 = require('./data_test_4.txt')
+const data_test_5 = require('./data_test_5.txt')
+const puzzle_data = require('./puzzle_data.txt');
 
 function compute_data(data) {
     return data
