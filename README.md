@@ -25,6 +25,9 @@ Every day in December befor Christmas, we have a challenge to face : a developer
 | 10  | :heavy_check_mark: | :heavy_check_mark: |
 | 11  | :heavy_check_mark: | :heavy_check_mark: |
 | 12  | :heavy_check_mark: | :heavy_check_mark: |
+| 13  | :x:                | :x:                |
+| 14  | :x:                | :x:                |
+| 15  | :x:                | :x:                |
 
 ## 2023
 => **Language** : Java 17
