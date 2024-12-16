@@ -11,11 +11,11 @@ Every day in December befor Christmas, we have a challenge to face : a developer
 ## 2024
 => **Language** : Python
 
-| Day | Part 1             | Part 2             |
-| --- | :----------------: | :----------------: |
-| 1   | :heavy_check_mark: | :heavy_check_mark: |
-| 2   | :heavy_check_mark: | :heavy_check_mark: |
-| 3   | :heavy_check_mark: | :heavy_check_mark: |
+| Day | Part 1             | Part 2             |   | Day | Part 1             | Part 2             |
+| --- | :----------------: | :----------------: | - | --- | :----------------: | :----------------: |
+| 1   | :heavy_check_mark: | :heavy_check_mark: |   | 14  | :x:                | :x:                |
+| 2   | :heavy_check_mark: | :heavy_check_mark: |   | 15  | :x:                | :x:                |
+| 3   | :heavy_check_mark: | :heavy_check_mark: |   | 16  | :x:                | :x:                |
 | 4   | :heavy_check_mark: | :heavy_check_mark: |
 | 5   | :heavy_check_mark: | :heavy_check_mark: |
 | 6   | :heavy_check_mark: | :heavy_check_mark: |
@@ -26,8 +26,6 @@ Every day in December befor Christmas, we have a challenge to face : a developer
 | 11  | :heavy_check_mark: | :heavy_check_mark: |
 | 12  | :heavy_check_mark: | :heavy_check_mark: |
 | 13  | :x:                | :x:                |
-| 14  | :x:                | :x:                |
-| 15  | :x:                | :x:                |
 
 ## 2023
 => **Language** : Java 17
